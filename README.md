@@ -17,7 +17,7 @@ Windows/MacOS:
 conda install -c conda-forge numpy opencv cogsci pygame argparse scipy
 ```
 
-## Usage:
+## Running:
 For help with usage:
 ```python3 fit.py -h```
 
@@ -35,3 +35,8 @@ Example (fit cubic spline to image: 'img.jpg'):
 ```
 python3 fit.py -i img.jpg -d 3
 ```
+
+## Usage:
+Left click on image window to add points, backspace to remove them.
+Press return to plot spline
+
