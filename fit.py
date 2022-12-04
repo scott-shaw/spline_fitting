@@ -55,7 +55,7 @@ while running:
         if event.type == pg.MOUSEBUTTONDOWN and event.button == LEFT:
             pts.add_point(Point(mx, my))
 
-        if event.type == pg.KEYDOWN and event.key == pg.K_BACKSPACE and len(points) > 0:
+        if event.type == pg.KEYDOWN and event.key == pg.K_BACKSPACE and len(pts.get_nparray()) > 0:
             pts.pop_last()
 
         if event.type == pg.KEYDOWN and event.key == pg.K_DELETE:
