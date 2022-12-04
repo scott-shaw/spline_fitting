@@ -8,7 +8,7 @@ Draw points on an image and fit an n-degree spine
 - argparse
 - scipy
 
-linux:
+Linux:
 ```
 pip3 install numpy opencv-python pygame argparse scipy
 ```
