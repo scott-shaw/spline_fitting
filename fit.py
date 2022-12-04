@@ -43,6 +43,7 @@ y = np.empty(0)
 p_arr = []
 LEFT = 1
 RIGHT = 3
+drawn_spline = False
 #************************************************ Main Program
 running = True
 while running:
@@ -64,12 +65,18 @@ while running:
         if event.type == pg.KEYDOWN and event.key == pg.K_RETURN:
             pts.print_points()
             if len(p_arr)>2:
+                drawn_spline = True
                 x = p_arr[:,0]
                 y = p_arr[:,1]
                 make_splined_image(x,y,degree_of_spline,width,gamma,img,spl_path)
                 background=pg.image.load(spl_path)
-
-    p_arr = pts.get_nparray()
-    pts.draw_points(screen)   
-    pg.display.flip()
+                screen.blit(background, (0,0))
+                pts.draw_points(screen)
+                pg.display.flip()
+                pg.image.save(screen, spl_path)
+    
+    if not drawn_spline:
+        p_arr = pts.get_nparray()
+        pts.draw_points(screen)   
+        pg.display.flip()
 
