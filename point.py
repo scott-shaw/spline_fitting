@@ -3,7 +3,7 @@ import numpy as np
 
 class Point(object):
 
-    def __init__(self, x, y, color=(0,255,0), radius=3):
+    def __init__(self, x, y, color=(0,255,0), radius=6):
         self.x = round(x)
         self.y = round(y)
         self.color = color

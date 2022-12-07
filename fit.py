@@ -2,6 +2,7 @@ import pygame as pg
 import numpy as np
 import cv2
 import argparse
+import copy
 from math import *
 from point import *
 from points import *
@@ -24,6 +25,7 @@ if args.degree:
     degree_of_spline = args.degree[0]
 
 img = cv2.imread(img_path)
+img_cache = copy.deepcopy(img)
 height, width, channels = img.shape 
 print('Image Shape: [{}, {}]'.format(width,height))
 
@@ -36,7 +38,8 @@ background = pg.image.load(img_path)
 pg.display.set_caption('Spline Image Fitting')
 
 # initialize variables
-spl_path = "splined_image.jpg"
+spl_path = "splined_image"
+path_type = ".jpg"
 pts = Points()
 x = np.empty(0)
 y = np.empty(0)
@@ -68,13 +71,25 @@ while running:
                 drawn_spline = True
                 x = p_arr[:,0]
                 y = p_arr[:,1]
-                make_splined_image(x,y,degree_of_spline,width,gamma,img,spl_path)
-                background=pg.image.load(spl_path)
+                make_splined_image(x,y,degree_of_spline,width,gamma,img,spl_path, path_type)
+                background=pg.image.load(spl_path+str(degree_of_spline)+path_type)
                 screen.blit(background, (0,0))
                 pts.draw_points(screen)
                 pg.display.flip()
-                pg.image.save(screen, spl_path)
-    
+                pg.image.save(screen, spl_path+str(degree_of_spline)+path_type)
+
+        if event.type == pg.KEYDOWN and event.key == pg.K_SPACE and drawn_spline:
+            img = copy.deepcopy(img_cache)
+            degree_of_spline += 1
+            x = p_arr[:,0]
+            y = p_arr[:,1]
+            make_splined_image(x,y,degree_of_spline,width,gamma,img,spl_path, path_type)
+            background=pg.image.load(spl_path+str(degree_of_spline)+path_type)
+            screen.blit(background, (0,0))
+            pts.draw_points(screen)
+            pg.display.flip()
+            pg.image.save(screen, spl_path+str(degree_of_spline)+path_type)
+
     if not drawn_spline:
         p_arr = pts.get_nparray()
         pts.draw_points(screen)   
