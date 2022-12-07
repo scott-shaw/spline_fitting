@@ -38,5 +38,6 @@ python3 fit.py -i img.jpg -d 3
 
 ## Usage:
 Left click on image window to add points, backspace to remove them.
-Press return to plot spline
+Press return to plot spline.
+Press space after plotting to increment the degree of the spline.
 
